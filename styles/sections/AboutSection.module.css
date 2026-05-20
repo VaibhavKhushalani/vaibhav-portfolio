@@ -1,10 +1,11 @@
 .section {
   position: relative;
-  z-index: 2;
+  z-index: 0;
   height: 100vh;
+  scroll-snap-align: start;
   background: #fff;
   display: grid;
-  grid-template-columns: 32% 68%;
+  grid-template-columns: 30% 70%;
   overflow: hidden;
 }
 
@@ -14,18 +15,18 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: center;
-  padding: 2.5rem 1.5rem 2.5rem 2.5rem;
+  padding: 3rem 1.5rem 2.5rem 2.5rem;
 }
 
-/* Smaller photo — capped width so it doesn't dominate */
+/* Photo — top-aligned, full column width, tall portrait */
 .photoFrame {
   position: relative;
-  width: min(100%, 260px);
-  aspect-ratio: 3 / 4;
+  width: 100%;
+  flex: 1;                     /* fills remaining height in column */
+  max-height: 72vh;
   overflow: hidden;
   border-radius: 6px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .photoImg {
@@ -33,39 +34,63 @@
   object-position: top center;
 }
 
-/* Signature feel — tilt + script font */
+/* Signature — large, below photo, slight tilt */
 .signature {
   font-family: var(--font-dancing), cursive;
   color: var(--accent);
-  font-size: 3.5rem;
+  font-size: 4rem;
   font-weight: 700;
-  margin-top: 0.6rem;
+  margin-top: 0.5rem;
   line-height: 1;
   display: inline-block;
   transform: rotate(-4deg);
   transform-origin: left center;
-  letter-spacing: 0.01em;
+}
+
+/* Social icons */
+.socials {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  align-items: center;
+}
+
+.socialLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: #f0f0f0;
+  color: #333;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.socialLink:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-3px) scale(1.12);
 }
 
 /* ── Right column ──────────────────────────── */
 
-/*
- * Flex column, centered vertically.
- * Email btn sits immediately after bioWrap (no grid gap).
- */
 .content {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 3.5rem 3.5rem 3rem 2.5rem;
+  padding: 4rem 4rem 4rem 3rem;
   overflow: hidden;
 }
 
+/* Tab ticker — matches reference orange pill style */
 .tabs {
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  margin-bottom: 1.75rem;
+  margin-bottom: 1.5rem;
   flex-shrink: 0;
 }
 
@@ -74,12 +99,12 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.3rem 0.8rem;
+  padding: 0.28rem 0.75rem;
   border-radius: 999px;
   border: none;
   cursor: pointer;
   background: transparent;
-  color: #aaa;
+  color: #bbb;
   transition: background 0.2s, color 0.2s;
 }
 
@@ -88,27 +113,27 @@
   color: #fff;
 }
 
-/* Bio — fixed max-height with gradient fade; email btn follows directly below */
+/* Bio — very large, bold, gradient fade at bottom (matches reference) */
 .bioWrap {
   flex-shrink: 0;
   overflow: hidden;
-  max-height: 46vh;
-  mask-image: linear-gradient(to bottom, #000 52%, transparent 94%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 52%, transparent 94%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 90%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 90%);
 }
 
 .bio {
-  font-size: clamp(1.05rem, 1.55vw, 1.55rem);
+  /* Match reference: ~2rem font, weight 800, tight leading */
+  font-size: clamp(1.3rem, 2.1vw, 2.1rem);
   font-weight: 800;
-  line-height: 1.48;
+  line-height: 1.38;
   color: #111;
   margin: 0;
 }
 
 .typed   { color: #111; }
-.untyped { color: #ccc; }
+.untyped { color: #c8c8c8; }
 
-/* Blinking cursor */
+/* Cursor blink */
 .cursor {
   display: inline-block;
   width: 2px;
@@ -122,53 +147,4 @@
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
-}
-
-/* Email button — immediately after bio (flex order) */
-.emailBtn {
-  margin-top: 1.5rem;
-  flex-shrink: 0;
-  width: fit-content;
-  border-radius: 999px !important;
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.55rem 1.6rem;
-  background: #f2f2f2 !important;
-  color: #111 !important;
-  border: 1px solid #ddd !important;
-  letter-spacing: 0.01em;
-  transition: background 0.2s;
-}
-
-.emailBtn:hover {
-  background: #e4e4e4 !important;
-}
-
-/* ── Social icons ───────────────────────────── */
-
-.socials {
-  display: flex;
-  gap: 0.9rem;
-  margin-top: 1.1rem;
-  align-items: center;
-}
-
-.socialLink {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 50%;
-  background: #f2f2f2;
-  color: #333;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition: background 0.22s ease, color 0.22s ease, transform 0.22s ease;
-}
-
-.socialLink:hover {
-  background: var(--accent);
-  color: #fff;
-  transform: translateY(-4px) scale(1.12);
 }

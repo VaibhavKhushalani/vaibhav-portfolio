@@ -1,20 +1,22 @@
+/* ── Section shell ──────────────────────────── */
 .section {
   position: relative;
-  flex-shrink: 0;
   height: 100vh;
-  background: #000;
+  scroll-snap-align: start;
+  background: #050505;
   overflow: hidden;
 }
 
+/* ── Video layers ───────────────────────────── */
 .bgVideo {
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: blur(24px);
-  transform: scale(1.1);
-  opacity: 0.7;
+  filter: blur(28px);
+  transform: scale(1.12);
+  opacity: 0.5;
 }
 
 .mainVideo {
@@ -22,16 +24,120 @@
   inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  z-index: 1;
 }
 
+/* ── Dark cinematic overlay ─────────────────── */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.70) 0%,
+    rgba(0, 0, 0, 0.30) 50%,
+    rgba(0, 0, 0, 0.60) 100%
+  );
+}
+
+/* ── Landing text content ───────────────────── */
+.heroContent {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 4rem;
+  pointer-events: none;
+}
+
+.eyebrow {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-family: var(--font-baloo), sans-serif;
+  font-size: clamp(3.5rem, 7.5vw, 8rem);
+  font-weight: 800;
+  color: #fff;
+  line-height: 0.88;
+  letter-spacing: -0.02em;
+}
+
+.role {
+  font-size: clamp(0.8rem, 1.2vw, 1rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.65);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 1.25rem;
+}
+
+/* Scroll down indicator */
+.scrollCue {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.55);
+  cursor: pointer;
+  pointer-events: all;
+  transition: color 0.2s;
+  border: none;
+  background: transparent;
+  padding: 0;
+}
+
+.scrollCue:hover {
+  color: #fff;
+}
+
+.scrollLabel {
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.scrollLine {
+  width: 1px;
+  height: 40px;
+  background: currentColor;
+  animation: scrollPulse 1.8s ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes scrollPulse {
+  0%   { transform: scaleY(0); opacity: 0; }
+  40%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(1); opacity: 0; }
+}
+
+/* ── Mute toggle ────────────────────────────── */
 .muteBtn {
   position: absolute;
   bottom: 2rem;
   right: 2rem;
-  z-index: 10;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  z-index: 5;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: #fff;
+  transition: background 0.2s;
+}
+
+.muteBtn:hover {
+  background: rgba(255, 255, 255, 0.2);
 }

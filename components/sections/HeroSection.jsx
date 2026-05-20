@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, forwardRef } from 'react'
 import Image from 'next/image'
-import Navbar from '@/components/ui/Navbar'
 import { gsap } from '@/lib/gsap'
 import styles from '@/styles/sections/HeroSection.module.css'
 
@@ -64,8 +63,6 @@ const HeroSection = forwardRef(function HeroSection(_, ref) {
       }}
       className={styles.section}
     >
-      <Navbar />
-
       {/* Photo — right side, sits above name text */}
       <div ref={photoRef} className={styles.photo}>
         <Image

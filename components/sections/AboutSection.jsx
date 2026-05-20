@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { Button } from '@/components/ui/button'
 import { gsap } from '@/lib/gsap'
 import { FaGithub, FaLinkedinIn, FaMedium, FaInstagram } from 'react-icons/fa'
 import styles from '@/styles/sections/AboutSection.module.css'
@@ -138,12 +137,6 @@ export default function AboutSection() {
           </p>
         </div>
 
-        {/* CTA */}
-        <Button
-          variant="outline"
-          render={<a href="mailto:vaibhavkhush124@gmail.com">Email me →</a>}
-          className={styles.emailBtn}
-        />
       </div>
     </section>
   )

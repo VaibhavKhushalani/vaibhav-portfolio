@@ -1,4 +1,8 @@
 import { render, screen, fireEvent } from '@testing-library/react'
+
+// ParticleField uses Three.js WebGL — stub it out in jsdom
+jest.mock('next/dynamic', () => () => () => null)
+
 import VideoIntro from '@/components/sections/VideoIntro'
 
 describe('VideoIntro', () => {
