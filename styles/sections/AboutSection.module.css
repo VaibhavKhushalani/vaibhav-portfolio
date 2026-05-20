@@ -15,7 +15,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 3rem 1.5rem 2.5rem 2.5rem;
+  padding: 8rem 1.5rem 2.5rem 2.5rem;
 }
 
 /* Photo — top-aligned, full column width, tall portrait */
@@ -83,6 +83,7 @@
   justify-content: center;
   padding: 4rem 4rem 4rem 3rem;
   overflow: hidden;
+  min-height: 0;
 }
 
 /* Tab ticker — matches reference orange pill style */
@@ -113,19 +114,14 @@
   color: #fff;
 }
 
-/* Bio — very large, bold, gradient fade at bottom (matches reference) */
 .bioWrap {
-  flex-shrink: 0;
-  overflow: hidden;
-  mask-image: linear-gradient(to bottom, #000 55%, transparent 90%);
-  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 90%);
+  overflow: auto;
 }
 
 .bio {
-  /* Match reference: ~2rem font, weight 800, tight leading */
-  font-size: clamp(1.3rem, 2.1vw, 2.1rem);
+  font-size: clamp(1rem, 1.6vw, 1.6rem);
   font-weight: 800;
-  line-height: 1.38;
+  line-height: 1.42;
   color: #111;
   margin: 0;
 }
