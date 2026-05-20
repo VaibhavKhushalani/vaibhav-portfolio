@@ -143,6 +143,40 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
         >
           Vaibhav
         </p>
+
+        {/* Location — between first and last name */}
+        <div
+          ref={locationRef}
+          style={{
+            paddingLeft: '0.25rem',
+            paddingTop: '0.5rem',
+            paddingBottom: '0.5rem',
+          }}
+        >
+          <p
+            style={{
+              fontSize: '0.7rem',
+              fontWeight: 600,
+              color: '#1E1E1E',
+              letterSpacing: '0.05em',
+              lineHeight: 1.4,
+            }}
+          >
+            Based on India*
+          </p>
+          <p
+            style={{
+              fontSize: '0.7rem',
+              fontWeight: 600,
+              color: '#1E1E1E',
+              letterSpacing: '0.05em',
+              lineHeight: 1.4,
+            }}
+          >
+            Available worldwide
+          </p>
+        </div>
+
         <p
           ref={lastName}
           style={{
@@ -155,39 +189,6 @@ const HeroSection = forwardRef(function HeroSection(props, ref) {
           }}
         >
           Khushalani
-        </p>
-      </div>
-
-      {/* Location — bottom right */}
-      <div
-        ref={locationRef}
-        style={{
-          position: 'absolute',
-          bottom: '2.5rem',
-          right: '2rem',
-          zIndex: 2,
-          textAlign: 'right',
-        }}
-      >
-        <p
-          style={{
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#1E1E1E',
-            letterSpacing: '0.05em',
-          }}
-        >
-          Based on India*
-        </p>
-        <p
-          style={{
-            fontSize: '0.7rem',
-            fontWeight: 600,
-            color: '#1E1E1E',
-            letterSpacing: '0.05em',
-          }}
-        >
-          Available worldwide
         </p>
       </div>
     </section>
