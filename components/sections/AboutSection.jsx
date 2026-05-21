@@ -7,9 +7,8 @@ import { FaGithub, FaLinkedinIn, FaMedium, FaInstagram } from 'react-icons/fa'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
-const BIO = profile.bio
-
-const TABS = ['I AM', 'WHO I AM']
+const BIO      = profile.bio
+const WHO_ITEMS = profile.whoAmI
 
 const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, Medium: FaMedium, Instagram: FaInstagram }
 
@@ -23,9 +22,8 @@ export default function AboutSection() {
   const intervalRef = useRef(null)
   const started     = useRef(false)
 
-  const [typed,     setTyped]     = useState(0)
-  const [done,      setDone]      = useState(false)
-  const [activeTab, setActiveTab] = useState(0)
+  const [typed, setTyped] = useState(0)
+  const [done,  setDone]  = useState(false)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -58,13 +56,13 @@ export default function AboutSection() {
         // Typewriter
         let i = 0
         intervalRef.current = setInterval(() => {
-          i += 1
+          i = Math.min(i + 6, BIO.length)
           setTyped(i)
           if (i >= BIO.length) {
             clearInterval(intervalRef.current)
             setDone(true)
           }
-        }, 11)
+        }, 16)
       },
       { threshold: 0.15 },
     )
@@ -115,25 +113,34 @@ export default function AboutSection() {
       {/* ── Right: content ───────────────────────────── */}
       <div ref={contentRef} className={styles.content}>
 
-        {/* Tabs */}
-        <div className={styles.tabs}>
-          {TABS.map((tab, i) => (
-            <button
-              key={tab}
-              onClick={() => setActiveTab(i)}
-              className={`${styles.tab} ${i === activeTab ? styles.tabActive : ''}`}
-            >
-              {tab}
-            </button>
-          ))}
+        {/* Who I Am — label + infinite marquee */}
+        <p className={styles.whoLabel}>Who I Am</p>
+        <div className={styles.marqueeWrap}>
+          <div className={styles.marqueeTrack}>
+            {[...WHO_ITEMS, ...WHO_ITEMS].map((item, i) => (
+              <span key={i} className={styles.marqueeItem}>
+                {item}
+                <span className={styles.marqueeDot}>·</span>
+              </span>
+            ))}
+          </div>
         </div>
 
-        {/* Bio text — typewriter */}
+        {/* Bio text — typewriter: all chars always in DOM, only color changes */}
         <div className={styles.bioWrap}>
           <p className={styles.bio}>
-            <span className={styles.typed}>{BIO.slice(0, typed)}</span>
-            {!done && <span className={styles.cursor} aria-hidden="true" />}
-            <span className={styles.untyped}>{BIO.slice(typed)}</span>
+            {BIO.split('').map((char, i) => (
+              <span
+                key={i}
+                className={
+                  i < typed
+                    ? (i === typed - 1 && !done ? styles.lastTyped : styles.typed)
+                    : styles.untyped
+                }
+              >
+                {char}
+              </span>
+            ))}
           </p>
         </div>
 

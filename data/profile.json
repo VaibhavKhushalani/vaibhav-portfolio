@@ -15,6 +15,20 @@
     "availability": "Available worldwide"
   },
   "bio": "Full Stack Engineer with 4+ years of experience building scalable web and AI powered systems using MERN, Next.js, and Python. Specialized in microservices, high performance APIs, and production ready architectures with a strong focus on scalability, performance, and clean system design. Experienced across the full stack from frontend architecture to backend systems, Redis caching, async processing, and AI platforms powered by FastAPI and LangChain.",
+  "whoAmI": [
+    "Full Stack Engineer",
+    "AI Builder",
+    "Problem Solver",
+    "System Designer",
+    "MERN Stack",
+    "Next.js Dev",
+    "Python Dev",
+    "Microservices",
+    "Open Source",
+    "API Architect",
+    "LangChain",
+    "FastAPI"
+  ],
   "socials": [
     { "label": "GitHub",    "href": "https://github.com/VaibhavKhushalani" },
     { "label": "LinkedIn",  "href": "https://linkedin.com/in/vaibhav-khushalani" },

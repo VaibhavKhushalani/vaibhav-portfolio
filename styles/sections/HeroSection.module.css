@@ -28,9 +28,11 @@
 
 .greeting {
   position: absolute;
-  top: 40vh;
+  top: 22vh;
   left: 1.5rem;
   z-index: 2;
+  will-change: transform;
+  cursor: default;
 }
 
 .greetText {
@@ -60,23 +62,27 @@
   letter-spacing: -0.02em;
   position: absolute;
   left: 1.5rem;
-  z-index: 0;
+  z-index: 3;
   white-space: nowrap;
+  will-change: transform;
+  cursor: default;
 }
 
 .firstName {
-  top: 45vh;
+  top: 30vh;
 }
 
 .lastName {
-  top: 65vh;
+  top: 60vh;
 }
 
 .location {
   position: absolute;
-  top: 58vh;
-  left: 42%;
+  top: 50vh;
+  left: 44%;
   z-index: 2;
+  will-change: transform;
+  cursor: default;
 }
 
 .locationText {
@@ -85,4 +91,26 @@
   color: #1e1e1e;
   letter-spacing: 0.05em;
   line-height: 1.5;
+}
+
+@media (max-width: 767px) {
+  .photo {
+    width: 75%;
+    height: 58vh;
+    top: auto;
+    bottom: 0;
+  }
+  .greeting { top: 5vh; left: 1rem; }
+  .name     { left: 1rem; }
+  .firstName { top: 12vh; }
+  .lastName  { top: 26vh; }
+  .location  { top: 40vh; left: 1rem; }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .photo { width: 60%; }
+  .greeting { top: 38vh; }
+  .firstName { top: 42vh; }
+  .lastName  { top: 62vh; }
+  .location  { top: 53vh; left: 38%; }
 }

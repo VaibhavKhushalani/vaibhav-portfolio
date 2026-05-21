@@ -20,6 +20,7 @@ export default function VideoIntro() {
   const scrollRef   = useRef(null)
   const hintRef     = useRef(null)
 
+  // muted state drives icon only — DOM muted property is controlled exclusively via ref
   const [muted,    setMuted]    = useState(true)
   const [playing,  setPlaying]  = useState(true)
   const [showHint, setShowHint] = useState(true)
@@ -34,18 +35,22 @@ export default function VideoIntro() {
     return () => tl.kill()
   }, [])
 
-  // Video fade-in
+  // Video fade-in — no auto-unmute; user must click the button
   useEffect(() => {
-    if (!videoRef.current) return
-    const t = gsap.fromTo(videoRef.current, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
+    const v = videoRef.current
+    if (!v) return
+    // Guarantee muted on mount regardless of browser attribute handling
+    v.muted = true
+    const t = gsap.fromTo(v, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
     return () => t.kill()
   }, [])
 
-  // Sound hint: auto-hide after 4 s
+  // Auto-hide hint after 6 s
   useEffect(() => {
-    const id = setTimeout(() => dismissHint(), 4000)
+    if (!showHint) return
+    const id = setTimeout(() => dismissHint(), 6000)
     return () => clearTimeout(id)
-  }, [])
+  }, [showHint])
 
   function dismissHint() {
     if (!hintRef.current) return
@@ -64,7 +69,13 @@ export default function VideoIntro() {
 
   function toggleMute() {
     if (showHint) dismissHint()
-    setMuted(m => !m)
+    const v = videoRef.current
+    if (!v) return
+    // Set DOM property synchronously inside click gesture — Safari requires this.
+    // React never updates `v.muted` on re-renders (known React limitation for video),
+    // so the static `muted` attr in JSX does not fight with this.
+    v.muted = !v.muted
+    setMuted(v.muted)
   }
 
   function handleEnded() { scrollNext() }
@@ -80,12 +91,12 @@ export default function VideoIntro() {
         className={styles.bgVideo}
       />
 
-      {/* 2 — Main video */}
+      {/* 2 — Main video: static `muted` attr so React never touches the DOM property on re-renders */}
       <video
         ref={videoRef}
         data-testid="intro-video"
         src="/assets/about-me.mp4"
-        autoPlay muted={muted} playsInline
+        autoPlay muted playsInline
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={handleEnded}
@@ -117,9 +128,9 @@ export default function VideoIntro() {
         </button>
       )}
 
-      {/* 7 — Sound hint badge (auto-fades) */}
+      {/* 7 — Sound hint badge (auto-fades after 6 s) */}
       {showHint && (
-        <div ref={hintRef} className={styles.soundHint}>
+        <div ref={hintRef} className={styles.soundHint} onClick={toggleMute} style={{ pointerEvents: 'all', cursor: 'pointer' }}>
           <span className={styles.soundPulse} />
           <span>Tap for sound</span>
         </div>

@@ -2,9 +2,12 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
 import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/HeroSection.module.css'
+
+const HeroBackground = dynamic(() => import('@/components/three/HeroBackground'), { ssr: false })
 
 export default function HeroSection() {
   const sectionRef  = useRef(null)
@@ -20,11 +23,8 @@ export default function HeroSection() {
     if (!section) return
 
     const targets = [
-      greetRef.current,
-      roleRef.current,
-      firstName.current,
-      lastName.current,
-      locationRef.current,
+      greetRef.current, roleRef.current,
+      firstName.current, lastName.current, locationRef.current,
     ].filter(Boolean)
 
     gsap.set(targets, { opacity: 0, y: 30 })
@@ -39,33 +39,23 @@ export default function HeroSection() {
       .to(locationRef.current, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out' }, '-=0.3')
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          tl.play()
-          observer.disconnect()
-        }
-      },
+      ([e]) => { if (e.isIntersecting) { tl.play(); observer.disconnect() } },
       { threshold: 0.3 },
     )
     observer.observe(section)
-
-    return () => {
-      observer.disconnect()
-      tl.kill()
-    }
+    return () => { observer.disconnect(); tl.kill() }
   }, [])
 
   return (
     <section ref={sectionRef} className={styles.section}>
 
-      {/* Photo — right side */}
+      <HeroBackground />
+
+      {/* Photo */}
       <div ref={photoRef} className={styles.photo}>
         <Image
-          src="/assets/hero.png"
-          alt={profile.name.full}
-          fill
-          priority
-          quality={100}
+          src="/assets/hero.png" alt={profile.name.full}
+          fill priority quality={100}
           sizes="(min-width: 768px) 40vw, 100vw"
           className={styles.photoImg}
         />
@@ -82,7 +72,7 @@ export default function HeroSection() {
         {profile.name.first}
       </p>
 
-      {/* Location — between names */}
+      {/* Location */}
       <div ref={locationRef} className={styles.location}>
         <p className={styles.locationText}>{profile.location.based}</p>
         <p className={styles.locationText}>{profile.location.availability}</p>

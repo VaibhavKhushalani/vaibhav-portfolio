@@ -73,3 +73,9 @@ main {
   scrollbar-width: thin;
   scrollbar-color: var(--accent) transparent;
 }
+
+@media (max-width: 767px) {
+  :root {
+    --hero-name-size: clamp(3rem, 10vw, 5rem);
+  }
+}
