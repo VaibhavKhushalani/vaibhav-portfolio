@@ -7,7 +7,6 @@ import {
   NavigationMenuItem,
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu'
-import { Button } from '@/components/ui/button'
 import { gsap } from '@/lib/gsap'
 import styles from '@/styles/ui/Navbar.module.css'
 
@@ -24,15 +23,16 @@ function getIST() {
 }
 
 export default function Navbar() {
-  const [time,    setTime]    = useState(getIST())
+  const [time,    setTime]    = useState('')   // '' on SSR — avoids hydration mismatch
   const [onIntro, setOnIntro] = useState(true)
   const headerRef   = useRef(null)
   const lastY       = useRef(0)
   const hidden      = useRef(false)
   const stopTimer   = useRef(null)
 
-  // Live clock
+  // Live clock — set immediately on mount, then every second
   useEffect(() => {
+    setTime(getIST())
     const id = setInterval(() => setTime(getIST()), 1000)
     return () => clearInterval(id)
   }, [])
@@ -91,11 +91,12 @@ export default function Navbar() {
         </NavigationMenuList>
       </NavigationMenu>
 
-      <Button
-        variant="outline"
-        render={<a href="mailto:vaibhavkhush124@gmail.com">Email me</a>}
+      <a
+        href="mailto:vaibhavkhush124@gmail.com"
         className={`${styles.emailBtn} rounded-full text-xs font-semibold px-5 h-8`}
-      />
+      >
+        Email me
+      </a>
     </header>
   )
 }
