@@ -72,6 +72,9 @@ export default function WorkExperienceSection() {
       }
 
       if (next) {
+        // Restore parent visibility before child animations (parent was set to opacity:0)
+        tl.set(next, { opacity: 1, y: 0 }, i + 0.44)
+
         const period  = next.querySelector(`.${styles.meta}`)
         const company = next.querySelector(`.${styles.company}`)
         const role    = next.querySelector(`.${styles.role}`)
