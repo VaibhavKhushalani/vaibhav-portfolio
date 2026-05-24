@@ -101,19 +101,20 @@
     bottom: 0;
     right: 0;
   }
-  .name      { white-space: normal; left: 1rem; right: 0; }
-  .greeting  { top: calc(3.5rem + 1vh); left: 1rem; }
-  .firstName { top: max(11vh, 5.5rem); }
-  .lastName  { top: max(23vh, 12rem); }
-  .location  { top: max(37vh, 18rem); left: 1rem; }
+  .name         { white-space: normal; left: 1rem; right: 0; }
+  .greeting     { top: 3.5rem; left: 1rem; }
+  .firstName    { top: 6rem; }
+  .lastName     { top: 10rem; }
+  .location     { top: 13.5rem; left: 1rem; }
   .locationText { font-size: 0.65rem; }
 }
 
 @media (max-width: 374px) {
   .photo     { width: 80%; height: 50vh; }
-  .firstName { top: 10vh; }
-  .lastName  { top: 21vh; }
-  .location  { top: 34vh; }
+  .greeting  { top: 3.5rem; }
+  .firstName { top: 5.5rem; }
+  .lastName  { top: 8.5rem; }
+  .location  { top: 11.5rem; }
 }
 
 @media (min-width: 768px) and (max-width: 1023px) {

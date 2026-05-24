@@ -111,9 +111,24 @@ export default function Home() {
 
     el.addEventListener('wheel',  onWheel,  { passive: false })
     el.addEventListener('scroll', onScroll, { passive: true  })
+
+    let mTouchY = 0
+    function onMobileTouchStart(e) { mTouchY = e.touches[0].clientY }
+    function onMobileTouchEnd(e) {
+      const dy = mTouchY - e.changedTouches[0].clientY
+      if (Math.abs(dy) < 40) return
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 8
+      const atTop    = el.scrollTop < 8
+      if (dy > 0 && atBottom) fadeLoop(0, 0)
+      if (dy < 0 && atTop)    fadeLoop((TOTAL - 1) * window.innerHeight, TOTAL - 1)
+    }
+
     if (!isMobile) {
       el.addEventListener('touchstart', onTouchStart, { passive: true })
       el.addEventListener('touchend',   onTouchEnd,   { passive: true })
+    } else {
+      el.addEventListener('touchstart', onMobileTouchStart, { passive: true })
+      el.addEventListener('touchend',   onMobileTouchEnd,   { passive: true })
     }
     window.addEventListener('footer-loop-back', onFooterLoop)
 
@@ -123,6 +138,9 @@ export default function Home() {
       if (!isMobile) {
         el.removeEventListener('touchstart', onTouchStart)
         el.removeEventListener('touchend',   onTouchEnd)
+      } else {
+        el.removeEventListener('touchstart', onMobileTouchStart)
+        el.removeEventListener('touchend',   onMobileTouchEnd)
       }
       window.removeEventListener('footer-loop-back', onFooterLoop)
       tweenRef.current?.kill()

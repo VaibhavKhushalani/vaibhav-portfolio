@@ -31,16 +31,26 @@ const VID_VERT = `
 const VID_FRAG = `
   uniform sampler2D uVideo;
   uniform float uOpacity;
+  uniform float uVideoAspect;
+  uniform float uCanvasAspect;
   varying vec2 vUv;
   void main() {
-    vec4 tex = texture2D(uVideo, vUv);
+    vec2 uv = vUv;
+    if (uCanvasAspect > uVideoAspect) {
+      float s = uVideoAspect / uCanvasAspect;
+      uv.y = (vUv.y - 0.5) * s + 0.5;
+    } else {
+      float s = uCanvasAspect / uVideoAspect;
+      uv.x = (vUv.x - 0.5) * s + 0.5;
+    }
+    vec4 tex = texture2D(uVideo, uv);
     float fadeY =
-      smoothstep(0.0, 0.05, vUv.y) *
-      smoothstep(1.0, 0.95, vUv.y);
+      smoothstep(0.0, 0.05, uv.y) *
+      smoothstep(1.0, 0.95, uv.y);
     float alpha = fadeY * uOpacity;
     float lum = dot(tex.rgb, vec3(0.299, 0.587, 0.114));
     vec3 col = mix(vec3(lum), tex.rgb, 0.72);
-    float vx = smoothstep(0.0, 0.38, abs(vUv.x - 0.5) * 2.0);
+    float vx = smoothstep(0.0, 0.38, abs(uv.x - 0.5) * 2.0);
     vec3 dark = vec3(0.008, 0.008, 0.008);
     col = mix(col, dark, vx * 0.82);
     col *= 0.68;
@@ -117,7 +127,16 @@ export default function PublicationsFooterSection() {
     vidTex.minFilter = THREE.LinearFilter
     vidTex.magFilter = THREE.LinearFilter
 
-    const vidUni = { uVideo: { value: vidTex }, uOpacity: { value: 0 } }
+    const vidUni = {
+      uVideo:       { value: vidTex },
+      uOpacity:     { value: 0 },
+      uVideoAspect: { value: 16 / 9 },
+      uCanvasAspect: { value: W / H },
+    }
+    videoEl.addEventListener('loadedmetadata', () => {
+      if (videoEl.videoWidth && videoEl.videoHeight)
+        vidUni.uVideoAspect.value = videoEl.videoWidth / videoEl.videoHeight
+    }, { once: true })
     const vidMat = new THREE.ShaderMaterial({
       uniforms: vidUni,
       vertexShader: VID_VERT,
@@ -143,6 +162,7 @@ export default function PublicationsFooterSection() {
       camera.left   = -w / 2; camera.right  = w / 2
       camera.top    =  h / 2; camera.bottom = -h / 2
       camera.updateProjectionMatrix()
+      vidUni.uCanvasAspect.value = w / h
     }
     window.addEventListener('resize', onResize)
 
