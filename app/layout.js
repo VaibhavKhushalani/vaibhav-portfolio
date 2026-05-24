@@ -85,9 +85,6 @@ export const metadata = {
   alternates: {
     canonical: SITE_URL,
   },
-  verification: {
-    google: '4k9su70HACiJIPkHUUW2pXfACKHVRa9N90bSFSMn7jA',
-  },
   icons: {
     icon: [
       { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
