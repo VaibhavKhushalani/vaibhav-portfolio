@@ -5,6 +5,12 @@
   z-index: 6;
 }
 
+@supports (height: 100svh) {
+  @media (max-width: 767px) {
+    .wrapper { height: 300svh; }
+  }
+}
+
 /* ── Sticky inner (100vh viewport-locked) ─────────────── */
 .sticky {
   position: sticky;
@@ -693,16 +699,28 @@
 
 /* ── Mobile ───────────────────────────────────────────── */
 @media (max-width: 767px) {
+  /* Use small viewport height so browser chrome doesn't clip content */
+  .sticky       { height: 100svh; min-height: -webkit-fill-available; }
+
   .pubHero      { padding: 3.5rem 1.25rem 0; }
-  .label        { font-size: 0.5rem; }
-  .heading      { font-size: clamp(1.8rem, 9vw, 2.4rem); }
-  .divider      { margin: 0.8rem 1.25rem 0; }
-  .list         { padding: 0 1.25rem 1rem; }
-  .item         { grid-template-columns: 2.2rem minmax(0, 1fr); gap: 0.6rem; }
+  .label        { font-size: 0.58rem; }
+  .heading      { font-size: clamp(1.6rem, 8vw, 2.2rem); }
+  .divider      { margin: 0.6rem 1.25rem 0; }
+
+  /* List: scrollable, no space-evenly squishing, items stack naturally */
+  .list         {
+    justify-content: flex-start;
+    gap: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 0.5rem 1.25rem env(safe-area-inset-bottom, 1.5rem);
+  }
+
+  .item         { grid-template-columns: 2rem minmax(0, 1fr); gap: 0.5rem; padding-top: 0.6rem; }
   .itemRight    { display: none; }
-  .num          { font-size: 0.9rem; }
-  .title        { font-size: 0.82rem; }
-  .desc         { font-size: 0.88rem; -webkit-line-clamp: 2; }
+  .num          { font-size: 0.85rem; }
+  .title        { font-size: 0.8rem; }
+  .desc         { font-size: 0.82rem; -webkit-line-clamp: 2; }
 
   .interstitialLeft,
   .interstitialRight { display: none; }
