@@ -97,11 +97,46 @@
       ],
       "desc": "AI-powered creator platform with LLM agents boosting engagement 40%. Interview assessment platform with sandboxed multi-language code execution. BullMQ + Redis cutting latency 60%. JWT, RBAC, real-time monitoring.",
       "tech": ["React.js", "Node.js", "FastAPI", "Redis", "BullMQ", "MongoDB", "Python"]
-    }
+    },
+    {
+  "id": 4,
+  "role": "Software Developer L3",
+  "company": "Forrester Research",
+  "companyShort": "FORRESTER",
+  "type": "Full-time",
+  "location": "India",
+  "period": "May 2026",
+  "periodEnd": "Present",
+  "bullets": [
+    "Developed AI-driven enterprise workflows using Python and React.js.",
+    "Enhanced data pipelines and automation scripts to support research operations.",
+    "Collaborated on building scalable backend services for analytics and content delivery."
+  ],
+  "desc": "Software Developer Level 3 working on AI-based applications using Python and React.js.",
+  "tech": [
+    "Python",
+    "React.js",
+    "AI",
+    "Docker",
+    "AWS",
+    "MongoDB",
+    "Node.js"
+  ]
+}
   ],
   "projects": [
     {
-      "id": 1,
+  "id": 1,
+  "title": "Taj Mahal Motion Experience",
+  "subtitle": "Cinematic 3D Web Experience",
+  "type": "Creative Web Experience",
+  "link": "http://vaibhav-create.vercel.app/projects/tajmahal",
+  "image": "/assets/project-tajmahal.png",
+  "tech": ["Next.js", "Three.js", "GSAP", "React Three Fiber", "JavaScript"],
+  "desc": "A cinematic web experience inspired by the Taj Mahal, featuring smooth image-sequence animations, immersive scrolling interactions, and visually rich storytelling. Developed using Next.js, Three.js, and GSAP with a strong focus on performance and user engagement."
+},
+    {
+      "id": 2,
       "title": "ArtGenio",
       "subtitle": "AI Prompt Marketplace & Creator Platform",
       "type": "SaaS",
@@ -111,7 +146,7 @@
       "desc": "Full-scale AI-powered marketplace for influencers and businesses. Features a subscription-based Creator Hub with 6 AI tools,Payment integration support for both international and domestic payments, scalable backend with MongoDB, and a complete admin dashboard for managing users, prompts, and analytics."
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "EasyFolio",
       "subtitle": "Multi-User Portfolio Platform",
       "type": "Platform",

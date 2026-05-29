@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { gsap, ScrollTrigger } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/ProjectsSection.module.css'
@@ -114,6 +115,12 @@ export default function ProjectsSection() {
         {/* Top bar */}
         <div className={styles.topBar}>
           <span className={styles.sectionLabel}>Projects</span>
+          <Link href="/projects" className={styles.viewAllBtn}>
+            <span>View All Projects</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden>
+              <path d="M2 10L10 2M10 2H4M10 2V8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </Link>
           <div className={styles.counter}>
             <span ref={counterRef} className={styles.cCur}>01</span>
             <span className={styles.cSep}> / </span>

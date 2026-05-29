@@ -57,6 +57,10 @@
 /* ─── Base ──────────────────────────────────────────────── */
 html, body {
   height: 100%;
+}
+
+html.home-scroll-locked,
+body.home-scroll-locked {
   overflow: hidden;
 }
 
@@ -67,8 +71,8 @@ body {
 }
 
 /* ─── Hide scrollbar ─────────────────────────────────────── */
-main::-webkit-scrollbar { display: none; }
-main { scrollbar-width: none; -ms-overflow-style: none; }
+body.home-scroll-locked main::-webkit-scrollbar { display: none; }
+body.home-scroll-locked main { scrollbar-width: none; -ms-overflow-style: none; }
 
 @media (max-width: 767px) {
   :root {
@@ -76,6 +80,7 @@ main { scrollbar-width: none; -ms-overflow-style: none; }
   }
 
   /* Override inline 100vh - Chrome mobile toolbar hides bottom content */
-  html, body { height: 100svh !important; }
-  main { height: 100svh !important; }
+  html.home-scroll-locked,
+  body.home-scroll-locked { height: 100svh !important; }
+  body.home-scroll-locked main { height: 100svh !important; }
 }

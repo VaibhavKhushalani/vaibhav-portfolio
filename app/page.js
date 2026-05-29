@@ -25,6 +25,16 @@ export default function Home() {
   const [showLoader, setShowLoader] = useState(true)
 
   useEffect(() => {
+    document.documentElement.classList.add('home-scroll-locked')
+    document.body.classList.add('home-scroll-locked')
+
+    return () => {
+      document.documentElement.classList.remove('home-scroll-locked')
+      document.body.classList.remove('home-scroll-locked')
+    }
+  }, [])
+
+  useEffect(() => {
     const el = mainRef.current
     if (!el) return
 
