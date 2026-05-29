@@ -230,9 +230,9 @@ export default function TajMahalPage() {
             resizeCanvas();
             createScrollStory();
 
-            setTimeout(() => {
+           
                 setLoading(false);
-            }, 3000);
+         
         };
 
         resizeCanvas();
